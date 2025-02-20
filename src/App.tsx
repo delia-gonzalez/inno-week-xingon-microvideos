@@ -1,11 +1,11 @@
 import xingonSticker from "./assets/xingon.png";
-import { CloudUpload } from "@mui/icons-material";
+import { Assistant, FactCheck, MonetizationOn } from "@mui/icons-material";
 import "./App.css";
-import { Button, styled, TextField } from "@mui/material";
+import { Box, Button, styled, TextField } from "@mui/material";
 
 import { fal } from "@fal-ai/client";
 import ReactPlayer from "react-player";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Card = styled("div")`
   display: flex;
@@ -21,6 +21,16 @@ const UploadedImage = styled("img")`
   margin: 10px;
 `;
 
+const StyledInput = styled("input")`
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px;
+  width: 100%;
+  box-sizing: border-box;
+`;
+
 function App() {
   fal.config({
     credentials: import.meta.env.VITE_FAL_KEY,
@@ -28,9 +38,22 @@ function App() {
 
   const [profileImageUrl, setProfileImageUrl] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [keypoints, setKeypoints] = useState("");
+  const [keywords, setKeywords] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [textInput, setTextInput] = useState("");
+
+  const endOfPageRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = (): void => {
+    endOfPageRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [profileImageUrl, keywords, videoUrl]);
 
   const handleTextInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -53,7 +76,7 @@ function App() {
     setProfileImageUrl(uploadedImage);
   };
 
-  const handleGenerateKeypoints = async () => {
+  const handleGenerateKeywords = async () => {
     const result = await fal.subscribe("fal-ai/any-llm", {
       input: {
         prompt:
@@ -68,7 +91,7 @@ function App() {
       },
     });
 
-    setKeypoints(result.data.output);
+    setKeywords(result.data.output);
   };
 
   const handleGenerateVideo = async () => {
@@ -96,33 +119,45 @@ function App() {
 
   return (
     <>
-      <div>
+      <Card className="card">
         <img
           src={xingonSticker}
           className="xingon sticker"
           alt="Xingon logo"
           width="100"
         />
-      </div>
-      <h1>Create your micro video</h1>
+        <h1>Create your micro video</h1>
+      </Card>
       <Card className="card">
+        <h3>Copy here the article you want to summarize:</h3>
         <TextField
           id="outlined-multiline-static"
-          label="Multiline"
+          label="Insider article"
           multiline
-          rows={4}
-          defaultValue="Paste your article here"
+          maxRows={15}
           margin="normal"
           fullWidth
           onChange={handleTextInputChange}
         />
-        <Button variant="contained" onClick={handleGenerateKeypoints}>
+        <Button
+          variant="contained"
+          startIcon={<Assistant />}
+          onClick={handleGenerateKeywords}
+        >
           Extract key points
         </Button>
-        {keypoints && <div>{keypoints}</div>}
+        {keywords && (
+          <Box
+            component="section"
+            sx={{ width: 700, p: 2, border: "1px solid grey", margin: "10px" }}
+          >
+            {keywords}
+          </Box>
+        )}
       </Card>
       <Card className="card">
-        <input
+        <h3>Add your profile picture:</h3>
+        <StyledInput
           type="file"
           accept="image/*"
           onChange={(event) => {
@@ -134,11 +169,25 @@ function App() {
         />
         <Button
           variant="contained"
-          startIcon={<CloudUpload />}
+          startIcon={<FactCheck />}
           onClick={uploadPhoto}
         >
-          Upload profile image
+          Check profile image
         </Button>
+        {profileImageUrl === "" && (
+          <Box
+            component="section"
+            sx={{
+              width: 700,
+              p: 2,
+              border: "1px solid grey",
+              background: "solid grey",
+              margin: "10px",
+            }}
+          >
+            Your image should appear here
+          </Box>
+        )}
         {profileImageUrl !== "" && (
           <UploadedImage
             src={profileImageUrl}
@@ -146,10 +195,17 @@ function App() {
             width="300px"
           />
         )}
-        <GenerateButton variant="contained" onClick={handleGenerateVideo}>
-          $$ Generate! $$
+        <GenerateButton
+          variant="contained"
+          onClick={handleGenerateVideo}
+          startIcon={<MonetizationOn />}
+          endIcon={<MonetizationOn />}
+        >
+          Generate video!
         </GenerateButton>
-        {videoUrl !== "" && <ReactPlayer url={videoUrl} controls={true} />}
+        {videoUrl !== "" && (
+          <ReactPlayer url={videoUrl} controls={true} ref={scrollToBottom} />
+        )}
       </Card>
     </>
   );
