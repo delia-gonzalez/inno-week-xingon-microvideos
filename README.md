@@ -1,13 +1,19 @@
 # Let AI create micro videos from a text and profile image
 
+![7f96a689-95a9-46d3-8fc4-1bacda79b8f1_removalai_preview](https://github.com/user-attachments/assets/020701ee-78e9-4d40-9435-6391f2ab68f1)
+
 Miro Project
 https://miro.com/app/board/uXjVLluA45s=/
 
 This project was bootstrapped with [Vite React](https://vite.dev/guide/) and it's using styles from [Mui](https://mui.com/material-ui/getting-started/)
 
 ## How it looks
+![Screenshot 2025-02-20 at 12 40 50](https://github.com/user-attachments/assets/ccd95835-fccb-475f-9622-1db34b4e7915)
+![Screenshot 2025-02-20 at 12 41 41](https://github.com/user-attachments/assets/e452f478-04c0-4829-aa62-9ef06a4627c7)
+
 
 ## How it works
+![Screenshot 2025-02-20 at 12 48 17](https://github.com/user-attachments/assets/5f7dda14-63b1-4af0-98e0-fdb5894b8ba3)
 
 ## Run it in your local environment
 
