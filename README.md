@@ -4,7 +4,8 @@
 
 Miro Project
 https://miro.com/app/board/uXjVLluA45s=/
-![Uploading Screenshot 2025-02-20 at 16.58.07.jpg…]()
+![Screenshot 2025-02-20 at 16 58 07](https://github.com/user-attachments/assets/7a340b37-0639-480c-9c1c-0ed61667b441)
+
 
 
 This project was bootstrapped with [Vite React](https://vite.dev/guide/) and it's using styles from [Mui](https://mui.com/material-ui/getting-started/).
