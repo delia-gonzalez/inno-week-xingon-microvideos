@@ -5,7 +5,7 @@
 Miro Project
 https://miro.com/app/board/uXjVLluA45s=/
 
-This project was bootstrapped with [Vite React](https://vite.dev/guide/) and it's using styles from [Mui](https://mui.com/material-ui/getting-started/)
+This project was bootstrapped with [Vite React](https://vite.dev/guide/) and it's using styles from [Mui](https://mui.com/material-ui/getting-started/).
 
 ## How it looks
 ![Screenshot 2025-02-20 at 12 40 50](https://github.com/user-attachments/assets/ccd95835-fccb-475f-9622-1db34b4e7915)
@@ -14,6 +14,10 @@ This project was bootstrapped with [Vite React](https://vite.dev/guide/) and it'
 
 ## How it works
 ![Screenshot 2025-02-20 at 12 48 17](https://github.com/user-attachments/assets/5f7dda14-63b1-4af0-98e0-fdb5894b8ba3)
+
+It uses fal-ai APIs to:
+1. Extract keywords from a given text (copy pasted from an insiders article): https://fal.ai/models/fal-ai/any-llm/api
+2. Generate a video of a person talking from the profile picture: https://fal.ai/models/fal-ai/luma-dream-machine/ray-2/image-to-video/api
 
 ## Run it in your local environment
 
